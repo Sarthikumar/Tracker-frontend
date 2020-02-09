@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<nav class="navbar  navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Issue Tracker</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/create">Create Issue</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/issue">Issue</a>
+        </li>
+     <!-- <li class="nav-item">
+        <a class="nav-link" href="/login" (click)="logout()">Logout</a>
+      </li>-->
+    </ul>
+    <!--<span class="my-2 my-lg-1 mr-2">Hello</span>-->
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" [(ngModel)] = "searchText">
+      <button class="btn btn-secondary my-2 my-sm-0 mr-3"  type="submit" [routerLink] = "['/search',searchText]">Search</button>
+      </form>
+        <app-user-details [userName]="loginUser"></app-user-details>
+  </div>
+</nav>
+
+<div class="container"  *ngIf="currentIssue">
+
+  <div class="row">
+    <div class="col-sm-8 searchspace">
+        <span>Title: </span>
+        <input type="text" class="form-control"  name="Issuetitle" #title="ngModel"[(ngModel)]="currentIssue.title" placeholder="Title" required autofocus>
+        <br>
+        <span>Assignee Email: </span>
+         <input type="email" class="form-control" name="Issueassignemail" #assignemail="ngModel"[(ngModel)]="currentIssue.assignemail" placeholder="Email address" required>
+         <br>
+         <span>Description: </span>
+         <input type="text"  class="form-control" name="Issuedescription" #description="ngModel" [(ngModel)]="currentIssue.description" placeholder="Description" required autofocus>
+          <br>
+          <span>Status Of Code: </span>
+  
+          <select [(ngModel)]="currentIssue.status" #status="ngModel" name="Issuestatus" class="form-control" id="category" required>
+            <option>{{currentIssue.status}}</option>
+            <option *ngFor="let status of possibleCategories" [value]="status">{{status}}</option>
+          </select>
+          <br>
+          <button class="btn btn-lg btn-primary btn-block"  type="button" (click)="editIssue()">Edit</button>
+
+    </div>
+    </div>
+    </div>
+   

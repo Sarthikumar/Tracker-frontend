@@ -1,0 +1,17 @@
+.searchspace{
+    color: green;
+    margin-left:12%;
+    margin-right: 10%
+}
+.time-right {
+    float: right;
+    color: #aaa;
+  }
+  .darker {
+    border-color: #ccc;
+    background-color: #ddd;
+   
+  }
+  .center {
+    text-align: center
+   }

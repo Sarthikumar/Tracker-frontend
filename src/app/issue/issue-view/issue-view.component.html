@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<nav class="navbar  navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Issue Tracker</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/create">Create Issue</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/issue">Issue</a>
+        </li>
+     <!-- <li class="nav-item">
+        <a class="nav-link" href="/login" (click)="logout()">Logout</a>
+      </li>-->
+    </ul>
+    <!--<span class="my-2 my-lg-1 mr-2">Hello</span>-->
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search" [(ngModel)] = "searchText">
+      <button class="btn btn-secondary my-2 my-sm-0 mr-3"  type="submit" [routerLink] = "['/search',searchText]">Search</button>
+      </form>
+        <app-user-details [userName]="loginUser"></app-user-details>
+  </div>
+</nav>
+<div class="container" *ngIf="currentIssue" style="border: 1px solid black">
+  <div class="row">
+      <div class="col-12" style="color: green;">Reporter Name: {{currentIssue.reportername}}</div>
+  </div>
+  <div class="row">
+    <div class="col-12" style="color: green;">Assignee Email: {{currentIssue.assignemail}}</div>
+   </div>
+   <div class="row">
+    <div class="col-12" style="color: green;">Craeted Date: {{currentIssue.createdOn | date}}</div>
+   </div>
+</div>
+<div class="container" style="border: 1px solid black">
+  <div class="row">
+      <div class="col-12" style="color: green;">Issue Title: {{currentIssue.title}}</div>
+  </div>
+  <div class="row">
+    <div class="col-12" style="color: green;">Issue Description: {{currentIssue.description}}</div>
+   </div>
+   <div class="row">
+    <div class="col-12" style="color: green;">Issue status: {{currentIssue.status}}</div>
+   </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+    <a class="btn btn-primary" [routerLink]="['/edit',currentIssue.IssueId]">Edit</a>
+  </div>
+  <div class="col-6" *ngIf="watcherMember">
+    <a class="btn btn-primary" id="test" style="float:left;" (click) = "addWatcher()">Watcher</a>
+  </div>
+  </div>
+</div>
+<h4 class="center" style="color: green;">Comments</h4>
+<!--<div #scrollMe [scrollTop]="(scrollToChatTop)?0:scrollMe.scrollHeight"  *ngIf="previousData">!-->
+    <ul *ngIf="previousData">
+
+        <p class="center" (click)="listMoreIssues()">Load Previous comment</p>
+        <p class="center" *ngIf="loadingPreviouscomment == true">Loading...</p>
+      </ul>
+      
+        <div class="container card">
+          <div class="form-group">
+            <div class="card card-body" *ngIf = "commentsList">
+                <table class="table table ">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Commentor</th>
+                        <th scope="col">comments</th>
+                      </tr>
+                    </thead>
+      
+                    <tbody *ngIf = "commentsList" class="table-striped ">
+                        <tr class="table-default" *ngFor = "let comment of commentsList">
+                           <td id = "commentor">{{comment.commentuser}}</td>
+                           <td id="commentText">{{comment.commenttext}}</td>
+                           </tr>
+                       </tbody>
+                       </table>
+              <div *ngFor = "let comment of commentsList">
+                
+              </div>
+            </div>
+
+<!--</div>-->
+<div class="container">
+  <div class="row">
+<button type = "submit" class="btn btn-lg btn-info" style="float:right;" (click) = "comment()">Post</button>
+<textarea class="form-control" name = "comment" [(ngModel)] = "postissueComment"id="postissueCommentArea" rows="3" spellcheck="false"  placeholder="Enter your comment here"></textarea>
+</div>
+</div>
